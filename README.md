@@ -15,7 +15,7 @@ It uses OpenCV preprocessing, TensorFlow/Keras augmentation, MobileNetV3-Large t
 
 ## Project Structure
 
-```text
+````text
 oct-eye-disease/
   app/
     app.py
@@ -31,7 +31,7 @@ oct-eye-disease/
     predict.py
   requirements.txt
   README.md
-```
+``
 
 ## Dataset Layout
 
@@ -66,7 +66,7 @@ dataset/
     DRUSEN/
     MH/
     NORMAL/
-```
+````
 
 If you trained in Google Colab and already saved `best_c8_model.keras`, place it in the `models/` folder and run the web app.
 
