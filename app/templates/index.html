@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OCT Eye Disease Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <div class="intro">
+          <div class="brand-row">
+            <span class="brand-mark"></span>
+            <p class="eyebrow">Retinal OCT Classifier</p>
+          </div>
+          <h1>OCT Eye Disease Prediction</h1>
+          <p class="summary">Classifies retinal OCT scans across AMD, CNV, CSR, DME, DR, DRUSEN, MH, and NORMAL using the trained C8 model.</p>
+
+          <div class="scan-visual" aria-hidden="true">
+            <div class="scan-screen">
+              <span class="scan-layer layer-one"></span>
+              <span class="scan-layer layer-two"></span>
+              <span class="scan-layer layer-three"></span>
+              <span class="scan-line"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-panel">
+          <form method="post" enctype="multipart/form-data" class="upload-form">
+            <label class="drop-zone" for="image-input">
+              <span class="upload-icon" aria-hidden="true"></span>
+              <span class="drop-title">Select OCT Image</span>
+              <span class="file-name" id="file-name">No file selected</span>
+            </label>
+            <input id="image-input" type="file" name="image" accept="image/*" required>
+            <button type="submit">
+              <span class="button-dot" aria-hidden="true"></span>
+              Predict
+            </button>
+          </form>
+
+          {% if result %}
+            <div class="result">
+              <div>
+                <span class="result-caption">Prediction</span>
+                <span class="label">{{ result.label }}</span>
+              </div>
+              <div class="confidence-block">
+                <span class="confidence">{{ result.confidence }}</span>
+                <span class="meter">
+                  <span class="meter-fill" style="width: {{ result.confidence_value }}%;"></span>
+                </span>
+              </div>
+            </div>
+
+            <div class="rankings">
+              {% for item in result.top_predictions %}
+                <div class="rank-row">
+                  <span>{{ item.label }}</span>
+                  <span class="rank-meter">
+                    <span style="width: {{ item.confidence_value }}%;"></span>
+                  </span>
+                  <strong>{{ item.confidence }}</strong>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if error %}
+            <div class="error">{{ error }}</div>
+          {% endif %}
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const input = document.getElementById("image-input");
+      const fileName = document.getElementById("file-name");
+
+      input.addEventListener("change", () => {
+        fileName.textContent = input.files.length ? input.files[0].name : "No file selected";
+      });
+    </script>
+  </body>
+</html>
