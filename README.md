@@ -11,7 +11,7 @@ This project classifies retinal OCT images into eight Retinal OCT C8 classes:
 - MH
 - NORMAL
 
-It uses OpenCV preprocessing, TensorFlow/Keras augmentation, MobileNetV3-Large transfer learning, evaluation metrics, and a Flask web app for image upload predictions.
+It uses OpenCV preprocessing, TensorFlow/Keras augmentation, MobileNetV3-Large transfer learning, evaluation metrics and a Flask web app for image upload predictions.
 
 ## Project Structure
 
